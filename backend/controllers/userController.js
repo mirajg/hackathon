@@ -30,7 +30,50 @@ const upload = multer({ storage });
 export const multerUpload = upload;
 
 export const updateUserInfo = async (req, res) => {
+    try {
+        const userId = req.params.id;
 
+        const { bio, skills } = req.body;
+
+        // parse skills (because frontend sends JSON.stringify)
+        let parsedSkills = [];
+        try {
+            parsedSkills = skills ? JSON.parse(skills) : [];
+        } catch (err) {
+            console.error("Skill parsing error:", err);
+        }
+
+        let imagePath = null;
+        if (req.file) {
+            imagePath = `/images/${req.file.filename}`; // public/images
+        }
+
+
+        const updateData = {
+            bio,
+            skills: parsedSkills,
+        };
+
+        if (imagePath) {
+            updateData.profilePic = imagePath;
+        }
+
+
+        const updatedUser = await userSchema.findByIdAndUpdate(
+            userId,
+            updateData,
+            { new: true }
+        );
+
+        if (!updatedUser) {
+            return res.status(404).json({ success: false, message: "User not found" });
+        }
+
+        return res.json({ success: true, user: updatedUser });
+    } catch (err) {
+        console.error("Update user error:", err);
+        return res.status(500).json({ success: false, message: "Server error" });
+    }
 };
 
 // this one is to store mesage which use has send. 
@@ -130,15 +173,84 @@ export const deletePost = async (req, res) => {
 };
 
 export const getUserInfoWithId = async (req, res) => {
-
+    try {
+        const userId = req.params.id;
+        const user = await userSchema.findById(userId);
+        if (!user) {
+            return res.status(404).json({ success: false, message: "User not found" });
+        }
+        return res.json({ success: true, user });
+    } catch (err) {
+        console.error("Get user info error:", err);
+        return res.status(500).json({ success: false, message: "Server error" });
+    }
 };
+
 
 export const followUser = async (req, res) => {
+    try {
+        const { sendFollowRequestId } = req.body;
+        const followToId = req.params.id;
 
+        if (sendFollowRequestId === followToId) {
+            return res.status(400).json({ success: false, message: "You cannot follow yourself" });
+        }
+
+        const userToFollow = await userSchema.findById(followToId);
+        if (!userToFollow) {
+            return res.status(404).json({ success: false, message: "User not found" });
+        }
+
+        let isFollowing = false;
+
+        if (userToFollow.followers.includes(sendFollowRequestId)) {
+            userToFollow.followers = userToFollow.followers.filter(
+                id => id.toString() !== sendFollowRequestId.toString()
+            );
+            isFollowing = false;
+        } else {
+            userToFollow.followers.push(sendFollowRequestId);
+            isFollowing = true;
+        }
+
+        await userToFollow.save();
+
+        return res.status(200).json({
+            success: true,
+            message: isFollowing ? "Followed user successfully" : "Unfollowed user successfully",
+            followersCount: userToFollow.followers.length,
+            isFollowing,
+        });
+    } catch (err) {
+        console.error("Follow user error:", err);
+        return res.status(500).json({ success: false, message: " server error detected here. " });
+    }
 };
 
-export const checkFollowStatus = async (req, res) => {
 
+export const checkFollowStatus = async (req, res) => {
+    try {
+        const { sendFollowRequestId } = req.body; // logged-in user
+        const followToId = req.params.id;
+
+        // Check if user exists
+        const userToFollow = await userSchema.findById(followToId);
+        if (!userToFollow) {
+            return res.status(404).json({ success: false, message: "User not found" });
+        }
+
+        // Check following status
+        const isFollowing = userToFollow.followers.includes(sendFollowRequestId);
+
+        return res.status(200).json({
+            success: true,
+            isFollowing,
+            followersCount: userToFollow.followers.length,
+        });
+    } catch (err) {
+        console.error("Check follow status error:", err);
+        return res.status(500).json({ success: false, message: "Server error" });
+    }
 };
 
 export const deleteContentPost = async (req, res) => {
@@ -261,7 +373,14 @@ export const applyJob = async (req, res) => {
 };
 
 export const getNotification = async (req, res) => {
-
+    try {
+        const userId = req.params.id;
+        const notifications = await notificationModel.find({ receiver: userId }).populate("sender").sort({ createdAt: -1 });
+        return res.status(200).json({ success: true, notifications });
+    } catch (err) {
+        console.error("Get notifications error:", err);
+        return res.status(500).json({ success: false, message: "Server error" });
+    }
 };
 
 export const getComments = async (req, res) => {
@@ -379,13 +498,40 @@ export const userRegister = async (req, res) => {
 };
 
 export const JobAdd = async (req, res) => {
+    try {
+        const { title, company, location, salary, description, userId } = req.body;
 
+        const newJob = await Job.create({
+            title,
+            company,
+            location,
+            salary,
+            jobdesc: description,
+            owner: userId
+        });
+
+        res.status(201).json({ success: true, job: newJob });
+    } catch (err) {
+        res.status(500).json({ success: false, message: "Error saving job" });
+    }
 };
-
 
 export const getUserInfo = async (req, res) => {
+    try {
+        const idOfUser = req.params.id;
+        const user = await userSchema.findById(idOfUser, 'name followers email bio skills profilePic');
 
+        if (!user) {
+            return res.status(404).json({ error: "User not found" });
+        }
+
+        return res.status(200).json({ user });
+    } catch (err) {
+        console.error(err);
+        return res.status(500).json({ error: "Internal server error" });
+    }
 };
+
 
 export const registerOAuth = async (req, res) => {
     try {

@@ -83,7 +83,7 @@ const Chatbot = () => {
     return (
         <>
             <NavPart /> {/*  this is navpart */}
-            <div className="flex justify-center items-end h-screen shadow-[0_4px_20px_rgba(0,0,0,0.3)]   p-5 font-sans">
+            <div className="flex justify-center bg-[#c0cbea] items-end h-screen shadow-[0_4px_20px_rgba(0,0,0,0.3)]   p-5 font-sans font-bold">
                 <motion.div
                     className="flex  bg-[rgba(20,20,30,0.9)] bg-[rgba(20,20,30,0.9)] flex-col w-full  max-w-md h-[80vh] backdrop-blur-md rounded-xl shadow-lg overflow-hidden text-white"
                     initial={{ opacity: 0, y: 30 }}
@@ -91,8 +91,8 @@ const Chatbot = () => {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.6 }}
                 >
-                    <div className="flex items-center justify-between  bg-[#4e3496] px-4 py-3 rounded-t-xl font-bold text-lg text-white">
-                        <span className="text-center mr-10 flex-1 ">AI Chatbot</span>
+                    <div className="flex items-center justify-between  bg-[#11c772] px-4 py-3 rounded-t-xl font-bold text-lg text-white">
+                        <span className="text-center flex-1 ">AI Chatbot</span>
                     </div>
 
                     <div ref={chatBoxRef} className="flex-1 p-4 flex flex-col gap-2 overflow-y-auto">
@@ -116,7 +116,7 @@ const Chatbot = () => {
                                 </motion.div>
                             ))}
                             {messages.length === 0 && (
-                                <p className="text-cente r italic font-bold  text-[#a29bfe]">Type something</p>
+                                <p className="text-center italic font-bold  text-[#c8c8c8]">Type something</p>
                             )}
                         </AnimatePresence>
                     </div>

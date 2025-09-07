@@ -34,7 +34,6 @@ const Page = () => {
         const data = await response.json();
         return data;
       } catch (error) {
-        console.error(' failed to fetch token details:', error.message);
         return null;
       }
     };
@@ -55,7 +54,7 @@ const Page = () => {
 
       router.push('/login');
     };
-
+ 
 
     handleAuth();
   }, [session, sessionStatus, router, setUser]);

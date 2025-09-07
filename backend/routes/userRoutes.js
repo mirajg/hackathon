@@ -24,7 +24,7 @@ router.post('/messages', storeMessages);
 router.post('/comments', storeComment);
 router.get('/contentPosts', contentPosts);
 router.delete('/contentPosts/:id', deleteContentPost);
-
+ 
 router.get('/get-user/:id', getUserInfo);
 router.post('/create-post/:id', multerUpload.single('image'), createPost);
 router.get('/jobs-post', getAllJobsPost);
