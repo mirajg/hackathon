@@ -8,6 +8,7 @@ const notificationSchema = new mongoose.Schema({
         ref: 'User',
         required: true
     },
+
     receiver: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
@@ -18,6 +19,7 @@ const notificationSchema = new mongoose.Schema({
         required: true,
         trim: true
     },
+    
     createdAt: {
         type: Date,
         default: Date.now // automatically, store current date.

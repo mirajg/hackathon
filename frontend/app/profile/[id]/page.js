@@ -10,6 +10,6 @@ const PostPage = () => {
       <h1>Post ID: {params.id}</h1>
     </div>
   )
-}
+} 
 
 export default PostPage

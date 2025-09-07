@@ -9,6 +9,7 @@ const postSchema = new mongoose.Schema({
         required: true,
         trim: true,
     },
+
     owner: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
@@ -18,6 +19,7 @@ const postSchema = new mongoose.Schema({
         type: Number,
         default: 0
     },
+
     comments: [{
         text: {
             type: String,
@@ -29,6 +31,7 @@ const postSchema = new mongoose.Schema({
             ref: 'User',
             required: true
         },
+
         createdAt: {
             type: Date,
             default: Date.now
@@ -38,6 +41,7 @@ const postSchema = new mongoose.Schema({
         type: String,
         default: null,
     },
+    
     createdAt: {
         type: Date,
         default: Date.now,

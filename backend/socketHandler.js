@@ -9,6 +9,7 @@ export default function socketHandler(io) {
 
         // Register a user with their userId in list. 
         socket.on('register-user', ({ userId }) => {
+
             // Check if userId already mapped .
             const existingSocketId = userSocketMap[userId];
             if (existingSocketId === socket.id) {
@@ -17,16 +18,20 @@ export default function socketHandler(io) {
             }
 
             // Register/update then userInfo in list.  
+
             userSocketMap[userId] = socket.id;
             socketUserMap[socket.id] = userId;
+
             console.log(userSocketMap, socketUserMap);
 
         });
 
         socket.on("update-message-to-remote-user", (message) => {
+
             const { userId } = message;
             const recipientSocketId = userSocketMap[userId];
             if (recipientSocketId) {
+                
                 io.to(recipientSocketId).emit("new-message", message.newMessage);  
             }
         });
@@ -35,8 +40,10 @@ export default function socketHandler(io) {
             const userId = socketUserMap[socket.id];
             if (userId) {
                 delete userSocketMap[userId];
+                
                 delete socketUserMap[socket.id];
                 console.log(`User disconnected: ${userId}`);
+                
             }
         });
     });

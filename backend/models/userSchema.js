@@ -8,6 +8,7 @@ const userSchema = new mongoose.Schema({
         required: true,
         trim: true,
     },
+
     email: {
         type: String,
         required: true,
@@ -18,6 +19,7 @@ const userSchema = new mongoose.Schema({
         type: String,
         trim: true,
     },
+
     followers: {
         type: Array,
         default: [],
@@ -35,6 +37,7 @@ const userSchema = new mongoose.Schema({
         type: String,
         default: "/images/placeholder.png"
     },
+
     contentPosts: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Post'
@@ -43,6 +46,7 @@ const userSchema = new mongoose.Schema({
         type: Boolean,
         default: false,
     },
+    
     createdAt: {
         type: Date,
         default: Date.now,

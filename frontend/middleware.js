@@ -1,17 +1,18 @@
 
+
 import { NextResponse } from "next/server";
 
 export function middleware(req) {
   const { cookies, nextUrl } = req;
 
-  const userId = cookies.get("userid");
+  const userId = cookies.get("userId");
   const devSession = cookies.get("next-auth.session-token");
 
   const isLoggedIn = userId || devSession;
 
   // Public routes (accessible without login)
-  const publicPaths = ["/", "/login", "/signup"];
-  const isPublicPath = publicPaths.includes(nextUrl.pathname);
+  const publicPaths = ["/", "/login", "/signup", "gain-skills"]; 
+  const isPublicPath = publicPaths.includes(nextUrl.pathname); 
 
   //  If not logged in and trying to access a protected route → redirect to the login page,
   if (!isLoggedIn && !isPublicPath) {

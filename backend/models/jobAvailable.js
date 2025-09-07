@@ -9,6 +9,7 @@ const jobdesc = new mongoose.Schema({
         required: true,
         trim: true,
     },
+
     company: {
         type: String,
         required: true,
@@ -18,6 +19,7 @@ const jobdesc = new mongoose.Schema({
         type: String,
         trim: true,
     },
+
     owner: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
@@ -31,6 +33,7 @@ const jobdesc = new mongoose.Schema({
         type: String,
         trim: true,
     },
+    
     createdAt: {
         type: Date,
         default: Date.now,

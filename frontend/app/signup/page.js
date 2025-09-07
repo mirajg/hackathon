@@ -3,7 +3,7 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import { motion } from 'framer-motion';
+import { motion } from 'framer-motion'; // yo animate lyauna ko 
 import { useRouter } from 'next/navigation';
 
 export default function Signup() {
@@ -39,12 +39,12 @@ export default function Signup() {
 
       const data = await res.json();
       console.log(data);
-      
+
 
       if (res.ok) {
         router.push(`/profile/${data.user._id}`);
         // signup user redirectde to profile page. 
-      } else { 
+      } else {
         alert(` signup failed: ${data.error}`);
       }
     } catch (err) {
@@ -54,12 +54,12 @@ export default function Signup() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-500 via-purple-500 to-pink-500 p-4">
+    <div className=" flex min-h-screen items-center justify-center bg-gradient-to-br from-blue-500 via-purple-500 to-pink-500 p-4">
       <motion.div
         initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.5, ease: 'easeOut' }}
-        className="bg-white shadow-xl rounded-xl p-8 w-full max-w-md sm:max-w-sm"
+        className="bg-white p-8 w-full max-w-md shadow-xl rounded-xl  sm:max-w-sm"
       >
         {/* Back Button */}
         <div className="mb-6">
@@ -67,10 +67,10 @@ export default function Signup() {
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="h-5 w-5 mr-1"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
               strokeWidth={2}
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
               aria-hidden="true"
             >
               <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
@@ -144,7 +144,7 @@ export default function Signup() {
 
         <p className="text-center text-sm text-gray-500 mt-4">
           Already have an account?{' '}
-          <Link href="/login" className="text-blue-600 hover:underline hover:text-blue-800 font-medium">
+          <Link href="/login" className="text-blue-600 hover:text-blue-800 hover:underline font-medium">
             Log In
           </Link>
         </p>
