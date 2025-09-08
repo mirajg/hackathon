@@ -10,7 +10,7 @@ import express from 'express';
 import cors from 'cors';  // to alloww from different path to connect. But who have authorised.  
 import userRoutes from './routes/userRoutes.js';
 import connectDB from './config/dbConnect.js';
-import cookieParser from 'cookie-parser'; 
+import cookieParser from 'cookie-parser';
 import { createServer } from 'http';
 import { Server } from 'socket.io'; // to create server.
 

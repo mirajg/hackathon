@@ -8,16 +8,23 @@ const notificationSchema = new mongoose.Schema({
         ref: 'User',
         required: true
     },
+
     receiver: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
         required: true
     },
-    notice: {
-        type: String, 
+    notice: { 
+        type: String,
         required: true,
         trim: true
     },
+    job: {
+        type: String,
+        required: true,
+        trim: true,
+    },
+
     createdAt: {
         type: Date,
         default: Date.now // automatically, store current date.

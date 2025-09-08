@@ -22,18 +22,18 @@ const NavPart = () => {
     await fetch(`${process.env.NEXT_PUBLIC_BACKENDPATH}/api/logout`, {
       method: 'GET',
       credentials: 'include',
-    }); 
+    });
 
     await signOut({ redirect: false });
     router.push('/');
   };
 
   return (
-    <nav className="bg-white/30 dark:bg-gray-900/30 backdrop-blur-lg p-4 rounded-2xl shadow-xl fixed top-4 left-1/2 transform -translate-x-1/2 w-[95%] z-50">
+    <nav className="bg-white/30 dark:bg-gray-900/30  backdrop-blur-lg p-4 rounded-2xl shadow-xl fixed top-4 left-1/2 transform -translate-x-1/2 w-[95%] z-50">
 
       <div className="flex items-center justify-between px-4 py-2">
-        {/* Logo */}
-        <h1 className="text-xl font-extrabold text-blue-600">
+
+        <h1 className="text-xl font-extrabold text-blue-600 hover:text-blue-500 transition-colors duration-300">
           <Link href="/profile">Linterest</Link>
         </h1>
 
@@ -45,7 +45,7 @@ const NavPart = () => {
             aria-label="Toggle Menu"
           >
             <span
-              className={`block w-8 h-1 rounded bg-gray-800 dark:bg-white transition-transform ${menuOpen ? 'rotate-45 translate-y-2' : ''
+              className={`block w-8 h-1 rounded bg-gray-800 dark:bg-white transition ${menuOpen ? 'rotate-45 translate-y-2' : ''
                 }`}
             />
             <span

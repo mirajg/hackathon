@@ -1,5 +1,5 @@
 
-// This is the page for an AI chatbot interface created with lots of Love  using api key of Sarvam AI .
+// This is the page for an AI chatbot interface created with lots of Love  using api key of Sarvam AI . 
 
 'use client'
 
@@ -13,10 +13,11 @@ const Chatbot = () => {
     const [messages, setMessages] = useState([]);
     const [input, setInput] = useState("");
     const [loadingPage, setLoadingPage] = useState(true);
+ 
     const chatBoxRef = useRef(null);
 
     const API_KEY = process.env.NEXT_PUBLIC_API_KEY;
-    const API_URL = "https://api.sarvam.ai/v1/chat/completions";
+    const API_URL = "https://api.sarvam.ai/v1/chat/completions"; // yo api key ho 
 
     const addMessage = (text, sender) => {
         setMessages((prev) => [...prev, { text, sender }]);
@@ -34,6 +35,7 @@ const Chatbot = () => {
         try {
             const res = await fetch(API_URL, {
                 method: "POST",
+
                 headers: {
                     "Content-Type": "application/json",
                     "Authorization": `Bearer ${API_KEY}`,
@@ -41,15 +43,16 @@ const Chatbot = () => {
                 body: JSON.stringify({
                     model: "sarvam-m",
                     messages: [
-                        { role: "system", content: "You are a helpful AI assistant." },
+                        { role: "system", content: "you are a helpful AI assistant." },
                         { role: "user", content: userText },
                     ],
                 }),
             });
 
             const data = await res.json();
-            const botReply = data.choices?.[0]?.message?.content || "No response";
+            const botReply = data.choices?.[0]?.message?.content || "No  response";
             addMessage(botReply, "bot");
+
         } catch (err) {
             addMessage("Error: " + err.message, "bot");
         }
@@ -68,9 +71,10 @@ const Chatbot = () => {
         return () => clearTimeout(timer);
     }, []);
 
+
     if (loadingPage) {
         return (
-            <div className="flex items-center justify-center h-screen bg-black">
+            <div className="flex  bg-black justify-center  h-screen  items-center ">
                 <Loading /> {/* loading compon ents to show load*/}
             </div>
         );
@@ -79,18 +83,18 @@ const Chatbot = () => {
     return (
         <>
             <NavPart /> {/*  this is navpart */}
-            <div className="flex shadow-[0_4px_20px_rgba(0,0,0,0.3)] justify-center items-end h-screen p-5 font-sans">
+            <div className="flex justify-center bg-[#c0cbea] items-end h-screen shadow-[0_4px_20px_rgba(0,0,0,0.3)]   p-5 font-sans font-bold">
                 <motion.div
-                    className="flex flex-col w-full max-w-md h-[80vh] bg-[rgba(20,20,30,0.9)] backdrop-blur-md rounded-xl shadow-lg overflow-hidden text-white"
+                    className="flex  bg-[rgba(20,20,30,0.9)] bg-[rgba(20,20,30,0.9)] flex-col w-full  max-w-md h-[80vh] backdrop-blur-md rounded-xl shadow-lg overflow-hidden text-white"
                     initial={{ opacity: 0, y: 30 }}
+
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.6 }}
                 >
-                    <div className="flex items-center justify-between bg-[#4e3496] px-4 py-3 rounded-t-xl font-bold text-lg text-white">
-                        <span className="flex-1 text-center mr-10">💬 AI Chatbot</span>
+                    <div className="flex items-center justify-between  bg-[#11c772] px-4 py-3 rounded-t-xl font-bold text-lg text-white">
+                        <span className="text-center flex-1 ">AI Chatbot</span>
                     </div>
 
-                    {/* Chat Box area. */}
                     <div ref={chatBoxRef} className="flex-1 p-4 flex flex-col gap-2 overflow-y-auto">
                         <AnimatePresence>
                             {messages.map((msg, idx) => (
@@ -108,28 +112,30 @@ const Chatbot = () => {
                                     ) : (
                                         msg.text
                                     )}
+
                                 </motion.div>
                             ))}
                             {messages.length === 0 && (
-                                <p className="text-center italic font-bold text-[#a29bfe]">Type something</p>
+                                <p className="text-center italic font-bold  text-[#c8c8c8]">Type something</p>
                             )}
                         </AnimatePresence>
                     </div>
 
-                    {/* Input page, here. */}
-                    <div className="flex items-center border-t border-gray-700 p-3 bg-[#1a1a1a]/70 backdrop-blur-md">
+                    <div className="flex items-center  p-3 bg-[#1a1a1a]/70   border-t border-gray-700 backdrop-blur-md">
                         <input
                             value={input}
+
                             onChange={(e) => setInput(e.target.value)}
                             onKeyDown={(e) => e.key === "Enter" && sendMessage()}
-                            placeholder="Type your message..."
-                            className="flex-1 px-4 py-2 rounded-full border border-gray-600 bg-[#2d3436] text-white placeholder-gray-400 outline-none focus:ring-2 focus:ring-[#00cec9] focus:border-[#00cec9] transition"
+                            placeholder="Type your  message..."
+                            className="flex-1 px-4  py-2 rounded-full  border  bg-[#2d3436] text-white border-gray-600 placeholder-gray-400 outline-none focus:ring-2 focus:ring-[#00cec9] focus:border-[#00cec9] transition"
                         />
                         <motion.button
                             whileHover={{ scale: 1.08 }}
                             whileTap={{ scale: 0.92 }}
+                            
                             onClick={sendMessage}
-                            className="ml-3 px-6 py-2 rounded-full bg-gradient-to-r from-[#00cec9] to-[#0984e3] text-white font-semibold shadow-md hover:shadow-lg transition"
+                            className="ml-3  bg-gradient-to-r px-6 py-2 rounded-full text-white font-semibold shadow-md hover:shadow-lg from-[#00cec9] to-[#0984e3]  transition"
                         >
                             Send
                         </motion.button>
