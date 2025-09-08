@@ -7,7 +7,6 @@ import NavPart from "../components/NavPart";
 import Loading from "../components/Loading";
 import { motion } from "framer-motion";
 import Link from "next/link";
-import Image from "next/image";
 import CommentPost from "../components/CommentPost";
 import { UseOwnInfo } from "../components/FetchOwnInfo";
 import { useAuth } from "../userInfoContext";
@@ -43,8 +42,10 @@ const FeedPage = () => {
                     setPosts(data.posts || []);
                 }
 
+
                 // add a tiny delay so UI doesn’t flicker instantly
                 setTimeout(() => setLoading(false), 500);
+
             } catch (error) {
                 console.error("Error fetching posts:", error);
                 setLoading(false);
@@ -53,6 +54,10 @@ const FeedPage = () => {
 
         fetchPosts();
     }, [activeTab]);
+
+    console.log('hi'); 
+    
+    
 
     useEffect(() => {
         const timer = setTimeout(() => {
@@ -113,7 +118,7 @@ const FeedPage = () => {
             headers: {
                 "Content-Type": "application/json",
             },
-            body: JSON.stringify({ userId: requestSendUserId, receiverId }),
+            body: JSON.stringify({ userId: requestSendUserId, receiverId, postId}), 
         });
 
         if (res.ok) {
@@ -131,7 +136,7 @@ const FeedPage = () => {
     return (
         <>
             <NavPart />
-            <div className="p-6 mt-[100px]"> 
+            <div className="p-6 mt-[100px]">
                 <div className="flex flex-col sm:flex-row gap-4 mb-6">
                     <button
                         onClick={() => setActiveTab("jobPosts")}
@@ -303,23 +308,25 @@ const FeedPage = () => {
 
                                             {/* this one to show the image of thhe post  */}
                                             {post.image && (
-                                                <Image
-                                                    src={post.image}
-                                                    priority
-                                                    width={500}
-                                                    height={300}
-                                                    alt="post"
-                                                    className="rounded-lg hover:scale-98 transition-all max-h-80 w-full object-cover shadow-sm mb-4"
-                                                />
+
+                                                <div className="w-full h-full rounded-sm overflow-hidden border-4 border-indigo-300 shadow-lg hover:scale-105 transition-transform duration-300">
+                                                    <img
+                                                        src={post.image} 
+                                                        alt="user avatar"
+                                                        className="w-full h-full object-cover"
+                                                    />
+                                                </div>
+
                                             )}
 
-                                            <div className="flex flex-col sm:flex-row gap-4 mt-4">
+
+                                            <div className="gap-4 mt-4">
 
                                                 <button
                                                     onClick={() => setActiveCommentPostId(activeCommentPostId === post._id ? null : post._id)}
                                                     className="flex items-center justify-center gap-2 w-full sm:w-auto px-4 py-2 bg-green-50 dark:bg-green-900 text-green-600 dark:text-green-300 rounded-lg font-medium shadow-sm hover:bg-green-100 dark:hover:bg-green-800 hover:shadow-md transition-all duration-300 transform hover:-translate-y-0.5 hover:scale-105"
                                                 >
-                                                    let's Comment
+                                                    Let's Comment
                                                 </button>
                                             </div>
 

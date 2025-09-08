@@ -55,11 +55,6 @@ export const UseOwnInfo = () => {
         }
       } catch (err) {
         console.error("Unexpected error in useOwnInfo:", err);
-        if (session?.user?.email) {
-          setUser(session.user);
-        } else {
-          setUser(null);
-        }
       } finally {
         setLoadingBackend(false);
       }

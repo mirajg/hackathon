@@ -13,7 +13,7 @@ const Chatbot = () => {
     const [messages, setMessages] = useState([]);
     const [input, setInput] = useState("");
     const [loadingPage, setLoadingPage] = useState(true);
-
+ 
     const chatBoxRef = useRef(null);
 
     const API_KEY = process.env.NEXT_PUBLIC_API_KEY;
@@ -43,7 +43,7 @@ const Chatbot = () => {
                 body: JSON.stringify({
                     model: "sarvam-m",
                     messages: [
-                        { role: "system", content: "you are a  helpful AI assistant." },
+                        { role: "system", content: "you are a helpful AI assistant." },
                         { role: "user", content: userText },
                     ],
                 }),

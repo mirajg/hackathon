@@ -17,6 +17,8 @@ export default function Signup() {
   const router = useRouter();
 
   const handleChange = (e) => {
+    console.log(e); 
+    
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
@@ -43,7 +45,7 @@ export default function Signup() {
 
       if (res.ok) {
         router.push(`/profile/${data.user._id}`);
-        // signup user redirectde to profile page. 
+        // signup user redirectde to profile page.
       } else {
         alert(` signup failed: ${data.error}`);
       }
@@ -61,9 +63,9 @@ export default function Signup() {
         transition={{ duration: 0.5, ease: 'easeOut' }}
         className="bg-white p-8 w-full max-w-md shadow-xl rounded-xl  sm:max-w-sm"
       >
-        {/* Back Button */}
+
         <div className="mb-6">
-          <Link href="/" className="inline-flex items-center text-blue-600 hover:text-blue-800 font-medium">
+          <Link href="/" className="flex items-center text-blue-600 hover:text-blue-800 font-medium">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="h-5 w-5 mr-1"
@@ -144,7 +146,7 @@ export default function Signup() {
 
         <p className="text-center text-sm text-gray-500 mt-4">
           Already have an account?{' '}
-          <Link href="/login" className="text-blue-600 hover:text-blue-800 hover:underline font-medium">
+          <Link href="/login" className="text-blue-600 hover:text-blue-800 hover:underline font-sans">
             Log In
           </Link>
         </p>

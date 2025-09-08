@@ -1,5 +1,5 @@
 
-'use client';
+'use client'; // this one client component, 
 import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -7,10 +7,9 @@ import { motion } from 'framer-motion';
 
 // === thi,s one is use to make animated, animation ko lai ho yo chahi ===
 const fadeUp = {
-  hidden: { opacity: 0, vark: 30 },
+  hidden: { opacity: 0},
   visible: (i = 1) => ({
     opacity: 1,
-    vark: 0,
     transition: { // yesko bapat animate hunxa. 
       delay: i * 0.2,
 
@@ -33,12 +32,6 @@ const HomePage = () => {
       {/* yo head ho */}
       <header className="w-full  flex justify-between items-center px-8 md:px-16 py-6 shadow-sm">
         <motion.h1
-
-          // aaba start hunxa main 
-          initial="hidden "
-          animate=" visible"
-
-          variants={fadeUp}
           className="text-2xl  font-bold text-blue-500 hover:text-blue-700 transition cursor-pointer"
         >
 
@@ -47,7 +40,7 @@ const HomePage = () => {
 
         {/* sing in start hunxa yha bata */}
         <nav className="space-x-6">
-          <Link href="/signup " className="text-gray-700  font-bold hover:text-blue-600 transition">
+          <Link href="/signup " className=" transition text-gray-700  font-bold hover:text-blue-600">
             Sign Up
           </Link>
           {/* href yha xa login ko lagi */}
@@ -94,7 +87,6 @@ const HomePage = () => {
 
         {/* yha bata illustration   hunxa= */}
         <motion.div
-          className="flex-1  justify-center flex "
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.8, ease: 'easeOut' }}
@@ -106,7 +98,8 @@ const HomePage = () => {
             width={500}
             height={400}
             priority
-            className="rounded-2xl  shadow-xl hover:scale-105 hover:rotate-1 hover:shadow-2xl transition-all duration-500 transform hover:brightness-110 border border-gray-200 hover:border-indigo-400"
+
+            className="rounded-2xl  shadow-xl hover:scale-105 hover:rotate-z-5 hover:shadow-2xl transition-all duration-500 transform hover:brightness-110 border border-gray-200 hover:border-indigo-400"
           />
         </motion.div>
       </section>
@@ -183,7 +176,7 @@ const HomePage = () => {
 
               animate="visible"
               variants={fadeUp}
-              className="p-6 bg-white duration-300 text-center rounded-xl  transition hover:-translate-y-2 shadow hover:shadow-lg"
+              className="p-6 bg-white duration-300 text-center rounded-xl  transition  hover:-translate-y-2 shadow hover:shadow-lg"
             >
               <div className="text-6xl">{feature.icon}</div>
               <h3 className="text-xl font-semibold mt-4">{feature.title}</h3>

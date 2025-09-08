@@ -15,6 +15,13 @@ export default function userChat() {
   const [input, setInput] = useState("");
   const router = useRouter();
 
+  const audioRef = useRef(null);
+
+  useEffect(() => {
+    audioRef.current = new Audio("/audios/notify.mp3");
+    audioRef.current.preload = "auto";
+  }, []);
+
   const { user, loadingBackend, sessionStatus: backendStatus } = UseOwnInfo();
   const [myId, setMyId] = useState(user?.userId || "");
 
@@ -53,9 +60,16 @@ export default function userChat() {
     if (!socket) return;
 
     const handleNewMessage = (message) => {
+      if (audioRef.current) {
+        audioRef.current.currentTime = 0; // reset to start
+        audioRef.current.play().catch((err) => {
+          console.log("Audio blocked until user interacts:", err);
+        });
+      }
 
       setMessages((prev) => [...prev, message]);
     };
+
 
     socket.on("new-message", handleNewMessage);
 
@@ -97,7 +111,7 @@ export default function userChat() {
 
   return (
     <div className="flex  max-h-screen w-full flex-col h-screen bg-gray-100">
-      
+
       <div className="p-4 flex items-center bg-white shadow  justify-between">
         <h1 className="text-lg font-semibold">Chat with User</h1>
       </div>

@@ -15,10 +15,6 @@ const postSchema = new mongoose.Schema({
         ref: 'User',
         required: true
     },
-    totalVotes: {
-        type: Number,
-        default: 0
-    },
 
     comments: [{
         text: {

@@ -1,8 +1,4 @@
 
-// this is user routes  .
-// some add to later.
-
-// :id, = is dynamic id. 
 
 import { userRegister, JobAdd, storeMessages, getNotification, fetchMessages, applyJob, deleteContentPost, storeComment, getComments, contentPosts, createPost, getUserInfoWithId, deletePost, getAllJobsPost, logOut, checkFollowStatus, followUser, userLogin, multerUpload, updateUserInfo, getUserInfo, checkToken, registerOAuth } from '../controllers/userController.js';
 import express from 'express';
@@ -12,13 +8,13 @@ const router = express.Router();
 
 router.post('/register', userRegister); // register to the user 
 router.post('/registerOAuth', registerOAuth);
-router.post('/login', userLogin);
+router.post('/login', userLogin); 
 
 
 router.get('/logout', logOut);
 router.get('/check-token', checkToken);
 router.get('/comments', getComments);
-router.get('/messages', fetchMessages);
+router.get('/messages', fetchMessages); 
 router.post('/messages', storeMessages);
 
 router.post('/comments', storeComment);

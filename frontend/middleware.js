@@ -11,7 +11,7 @@ export function middleware(req) {
   const isLoggedIn = userId || devSession;
 
   // Public routes (accessible without login)
-  const publicPaths = ["/", "/login", "/signup", "gain-skills"]; 
+  const publicPaths = ["/", "/login", "/signup"]; 
   const isPublicPath = publicPaths.includes(nextUrl.pathname); 
 
   //  If not logged in and trying to access a protected route → redirect to the login page,
@@ -23,7 +23,7 @@ export function middleware(req) {
   if (isLoggedIn && ["/login", "/signup"].includes(nextUrl.pathname)) {
     return NextResponse.redirect(new URL("/profile", req.url));
   }
-
+  
   return NextResponse.next();
 }
 

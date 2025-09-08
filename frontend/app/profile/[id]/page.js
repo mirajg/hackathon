@@ -4,13 +4,13 @@
 'use client';
 
 import Loading from '../../components/Loading';
-import Image from 'next/image';
 import Link from 'next/link';
 import { useAuth } from '@/app/userInfoContext';
 import EditInfo from '@/app/components/EditInfo';
 import { UseOwnInfo } from '../../components/FetchOwnInfo';
 import { useEffect, useState } from 'react';
 import { useSession } from 'next-auth/react';
+import Image from 'next/image';
 import PostContent from '@/app/components/PostContent';
 import NavPart from '@/app/components/NavPart';
 import { useParams } from 'next/navigation';
@@ -51,6 +51,7 @@ const Page = () => {
   }, [imageSrc])
 
 
+
   useEffect(() => {
     if (!params?.id) return;
     setIdOfUser(params.id);
@@ -58,6 +59,8 @@ const Page = () => {
     if (user?.userId) {
       socket.emit("register-user", { userId: user?.userId });
     }
+
+
 
     const fetchUserInfo = async () => {
       try {
@@ -238,17 +241,14 @@ const Page = () => {
             transition={{ duration: 0.6 }}
             className="flex items-center gap-6 bg-white p-5 rounded-2xl shadow-md border border-gray-200"
           >
-            <div className="w-[100px] h-[100px] rounded-full overflow-hidden border-4 border-indigo-300 shadow-lg">
-              <Image
-                src={'/frontend/images/placeholder.png'}
-                alt="User Avatar"
-                width={100}
-                height={100}
-                className="object-cover w-full h-full"
-                priority
-              />
+              <div className="w-[100px] h-[100px] rounded-full overflow-hidden border-4 border-indigo-300 shadow-lg hover:scale-105 transition-transform duration-300">
+                <img
+                  src={imageSrc || "/images/placeholder.png"}
+                  alt="user avatar"
+                  className="w-full h-full object-cover"
+                />
+              </div>
 
-            </div>
 
             <div className="flex-1 space-y-3">
               {/* name of the user show into here,  */}

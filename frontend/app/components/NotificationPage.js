@@ -15,8 +15,8 @@ const NotificationPage = () => {
 
     return (
       // framer motion helps to animate the layout of frontend. WHich make look cool 
-        <motion.div
-            initial={{ opacity: 0 }}
+        <motion.div 
+            initial={{ opacity: 0 }} 
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3, ease: "easeOut" }}
@@ -64,7 +64,7 @@ const NotificationPage = () => {
                                                 <span className="font-semibold text-purple-600">
                                                     {notification.sender?.name}
                                                 </span>{" "}
-                                                {notification.notice}
+                                                {notification.notice} {notification.job} 
                                             </p>
                                             <span className="text-xs text-gray-400 block mt-1">
                                                 {new Date(notification.createdAt).toLocaleString()}

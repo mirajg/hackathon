@@ -32,7 +32,7 @@ const Page = () => {
         }
 
         const data = await response.json();
-        return data;
+        return data; 
       } catch (error) {
         return null;
       }

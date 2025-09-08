@@ -281,10 +281,18 @@ export const applyJob = async (req, res) => {
         const receiverId = req.body.receiverId;
         const postId = req.params.postId;
 
+
         // let's see whether require condition meet or not during logic time. 
         if (!userId || !postId || !receiverId) {
             return res.status(400).json({ success: false, message: "All  fields are required" });
         }
+
+        const jobDetail = await Job.findById(postId);
+
+        if (!jobDetail) {
+            return res.status(404).json({ success: false, message: "Job info not found, 404 error. " });
+        }
+
 
         let receiverInfo = await userSchema.findById(receiverId);
         if (!receiverInfo) {
@@ -293,9 +301,9 @@ export const applyJob = async (req, res) => {
 
         await notificationModel.create({
             sender: userId,
-            receiver: receiverId,
+            receiver: receiverId, 
             notice: "Applied for job",
-            post: postId
+            job: jobDetail.title,
         });
 
         if (receiverInfo.isGoogle == true && receiverInfo.email) {
@@ -468,7 +476,8 @@ export const userRegister = async (req, res) => {
             {
                 userId: user._id,
                 email: user.email,
-                isGoogle, name: name
+                isGoogle,
+                name: name
             },
             process.env.JWT_SECRET,
             { expiresIn: '30d' }

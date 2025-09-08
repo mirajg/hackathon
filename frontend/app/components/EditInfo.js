@@ -115,16 +115,15 @@ const EditInfo = ({ userId }) => {
 
         {/* Profile Image */}
         <div className="flex flex-col items-center mb-8">
-          <div className="relative w-[100px] h-[100px] rounded-full overflow-hidden border-4 border-indigo-400 shadow-lg">
-            <Image
-              src={imagePreview}
-              alt="Profile Image"
-              fill
-              priority
-              className="object-cover rounded-full transition-transform duration-300 hover:scale-110"
+          <div className="w-[100px] h-[100px] rounded-full overflow-hidden border-4 border-indigo-300 shadow-lg hover:scale-105 transition-transform duration-300">
+            <img
+              src={imagePreview || "/images/placeholder.png"}
+              alt="user avatar"
+              className="w-full h-full object-cover"
             />
           </div>
 
+ 
           <label className="cursor-pointer px-5 py-2 bg-indigo-600 text-white rounded-full hover:bg-indigo-700 transition-all duration-300 shadow-md hover:shadow-lg">
             Change Image
             <input
